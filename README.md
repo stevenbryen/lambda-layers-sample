@@ -1,6 +1,6 @@
 ## Sample Lambda Layers Application
 
-This is a sample AWS Serverless Application Model (SAM) Application that scrapes the [AWS Technical Evangelists](https://aws.amazon.com/developer/community/evangelists/) site for headshots, and passes them to AWS Rkognition to detect faces and gather some attirbutes about the faces (Gender, MinAge, Max Age).
+This is a sample AWS Serverless Application Model (SAM) Application that scrapes the [AWS Technical Evangelists](https://aws.amazon.com/developer/community/evangelists/) site for headshots, and passes them to AWS Rkognition to detect faces and gather some attirbutes about the faces (Gender, MinAge, MaxAge).
 
 It contains a single Lambda Function that uses Beautiful Soup (BS4) and the LXML Parser to scrape the web page for `<img>` tags and then downloads the images to send to AWS Rekognition. 
 
@@ -54,13 +54,13 @@ You can deploy your application using the `sam deploy` command as shown below. T
 #### Manually creating Layers
 To build a Lambda Layer you need to upload a .zip file with the contents of the layer compressed. Unlike a function, a Layer does not require a handler, so it can include just libraries for example. That is what we will be doing in this sample app.
 
-One trick to packaging a Lambda Layer for Python is that the contents of the layer must sit within a folder with one of the following names. You should not place the contents of the layer into the root of the .zip file.
+***NOTE: One trick to packaging a Lambda Layer for Python is that the contents of the layer must sit within a folder with one of the following names. You should not place the contents of the layer into the root of the .zip file.***
 
-Acceptable folder names for Python are: python, python/lib/python3.7/site-packages
+**Acceptable folder names for Python are: python, python/lib/python3.7/site-packages**
 
 More info on including library dependencies in a layer [here](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html#configuration-layers-path)
 
-In the **layers** directory you will see two sub folders, bs4-layer and lxml-layer. Both of these folders include a folder called **python** where the libraries have been installed.
+In the **layers** directory you will see two sub folders, *bs4-layer* and *lxml-layer*. Both of these folders include a folder named **python** where the libraries have been installed.
 
 In the parent layer folder, there is also a .zip file that is the both the **python** folder and its contents compressed. This is the file we will need to manually create the layer in the AWS Console.
 
@@ -72,7 +72,7 @@ The Lambda function sits in the **functions/get-evangelists/lambda_function.py**
 
 The Function code is not the most optimal and takes ~12secs to run, so make sure that your function has a sufficient timeout (I specified 30seconds in the SAM template).
 
-Now in the Lambda Console for your function, select the Layers icon underneath your function and add the two layers that were previously created.
+Finally, In the Lambda Console for your function, select the Layers icon underneath your function and add the two layers that were previously created.
 
 ##Testing your Application
 
@@ -84,9 +84,9 @@ If you do not know the function name, then you can use the following command to 
 
 `aws lambda list-functions`
 
-The function does not require any payload or event, so we can leave that parameter for now. If testing in the AWS Console, you may need to create a test-event. You can create any event, the function does not use it.
+The function does not require any payload or event, so we can leave that parameter for now. If testing in the AWS Console, you may need to create a test-event. You can create any event, the function will ignore it.
 
-The function will output "Sucessfully Completed" into the output.txt file if it is successful. This is a basic example so the data from AWS Rekognition is only written to the console log. You can view the logs in the AWS CloudWatch Logs Console or from within the Functions Console if testing there.
+The function will output "Sucessfully Completed" into the output.txt file if it is successful. In this basic example, data from AWS Rekognition is only written to the logs. You can view the logs in the AWS CloudWatch Logs Console or from within the Functions Console if testing there.
 
 If using the cli to invoke the function, by specifying the *--log-type* parameter, the command also requests the tail end of the log produced by the function. The log data in the response is base64-encoded. Use the base64 program to decode the log.
 
