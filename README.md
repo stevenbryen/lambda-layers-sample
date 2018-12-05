@@ -1,6 +1,6 @@
 ## Sample Lambda Layers Application
 
-This is a sample AWS Serverless Application Model (SAM) Application that scrapes the [AWS Technical Evangelists](https://aws.amazon.com/developer/community/evangelists/) site for headshots, and passes them to AWS Rkognition to detect faces and gather some attirbutes about the faces (Gender, MinAge, MaxAge).
+This is a sample AWS Serverless Application Model (SAM) Application that scrapes the [AWS Technical Evangelists](https://aws.amazon.com/developer/community/evangelists/) site for headshots, and passes them to AWS Rekognition to detect faces and gather some attirbutes about the faces (Gender, MinAge, MaxAge).
 
 It contains a single Lambda Function that uses Beautiful Soup (BS4) and the LXML Parser to scrape the web page for `<img>` tags and then downloads the images to send to AWS Rekognition. 
 
