@@ -4,10 +4,9 @@ This is a sample AWS Serverless Application Model (SAM) Application that scrapes
 
 It contains a single Lambda Function that uses Beautiful Soup (BS4) and the LXML Parser to scrape the web page for `<img>` tags and then downloads the images to send to AWS Rekognition. 
 
-The Lambda function depends on both bs4 and lxml, however neither are included within the function code, we have separated them out into Lambda Layers to demonstrate its functionality. There are two layers.
+The Lambda function depends on both bs4 and lxml, however neither are included within the function code, we provde them via a Lambda Layer to demonstrate its functionality.
 
-- **bs4-layer** - Includes the Beautiful Soup Python Library
-- **lxml-layer** - Includes the LXML library. LXML is a platform-specific library so historically you would have had to build this on Amazon Linux for all of your Lambda functions. By creating a layer for LXML we only have to build it once, and then we can re-attach the layer to multiple functions.
+- **bs4-layer** - Includes the Beautiful Soup Python Library and the LXML library. LXML is a platform-specific library so historically you would have had to build this on Amazon Linux for all of your Lambda functions. By creating a layer for LXML we only have to build it once, and then we can re-attach the layer to multiple functions.
 
 ## Deploying your Application
 
@@ -60,11 +59,11 @@ To build a Lambda Layer you need to upload a .zip file with the contents of the 
 
 More info on including library dependencies in a layer [here](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html#configuration-layers-path)
 
-In the **layers** directory you will see two sub folders, *bs4-layer* and *lxml-layer*. Both of these folders include a folder named **python** where the libraries have been installed.
+In the **layers** directory you will see a sub folder, *bs4-layer* This folder will include a subfolder named **python** where the libraries have been installed.
 
 In the parent layer folder, there is also a .zip file that is the both the **python** folder and its contents compressed. This is the file we will need to manually create the layer in the AWS Console.
 
-This README will not provide step-by-step guide on how to use the AWS console to achieve this, but now you know which .zip file you need to manually create the layers this should be reasonably straight forward in the console. You will need to create two layers, one for BS4 and another for LXML.
+This README will not provide step-by-step guide on how to use the AWS console to achieve this, but now you know which .zip file you need to manually create the layers this should be reasonably straight forward in the console. 
 
 #### Manually Deploying Lambda Function
 
@@ -72,7 +71,7 @@ The Lambda function sits in the **functions/get-evangelists/lambda_function.py**
 
 The Function code is not the most optimal and takes ~12secs to run, so make sure that your function has a sufficient timeout (I specified 30seconds in the SAM template).
 
-Finally, In the Lambda Console for your function, select the Layers icon underneath your function and add the two layers that were previously created.
+Finally, In the Lambda Console for your function, select the Layers icon underneath your function and add the layer that was previously created.
 
 ##Testing your Application
 
