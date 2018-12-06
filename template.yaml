@@ -11,15 +11,6 @@ Resources:
       CompatibleRuntimes:
         - python3.6
       RetentionPolicy: Retain
-  lxmlLayer:
-    Type: 'AWS::Serverless::LayerVersion'
-    Properties:
-      LayerName: lxml-python36
-      Description: LXML Layer for Python 3.6
-      ContentUri: ./layers/lxml-layer/lxml-python36-layer.zip
-      CompatibleRuntimes:
-        - python3.6
-      RetentionPolicy: Retain
   getEvangelistsFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -33,5 +24,4 @@ Resources:
         - RekognitionDetectOnlyPolicy: {}
       Layers:
         - Ref: bs4Layer
-        - Ref: lxmlLayer
   
