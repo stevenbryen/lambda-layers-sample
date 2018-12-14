@@ -16,7 +16,14 @@ You can use SAM to deploy the layers along with the function, or if you are usin
 
 #### Getting Started
 
-Firstly you will need the SAM-CLI installed and configured on your local machine. You can get set up by following the instructions [here](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html).
+Firstly you will need the SAM-CLI installed and configured on your local machine. You will also need an upto date version of the AWS CLI. Versions are in ***requirements-dev.txt***
+
+Run the following command to make sure you have the minimum required versions installed.
+
+`pip install -r requirements-dev.txt`
+
+
+More instructions on installing sam-cli are [here](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html).
 
 To check that the SAM-CLI is running run
 `sam --version`
