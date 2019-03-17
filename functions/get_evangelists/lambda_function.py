@@ -18,9 +18,8 @@ def lambda_handler(event, context):
         src = "http://" + (img.get('src')).split("//")[1]
         #Make sure we are getting evangelist Bio Pics
         if "png" in src and "evangelist" in src:
-            #Some string manipulation to get the Evangelist name capitalized.
-            file_name = (src.rsplit('/', 1)[-1])
-            evangelist_name = (file_name.split('-')[1].split('.')[0]).capitalize()
+            # fetch firstname and last name from alt attribute
+            evangelist_name = img.get('alt').title()
             #Open the Image File to pass to Rekognition
             response = urllib.request.urlopen(src)
             data = response.read()
